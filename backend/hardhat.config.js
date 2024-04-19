@@ -4,7 +4,7 @@ require("@nomiclabs/hardhat-waffle");
 require("@nomicfoundation/hardhat-web3-v4");
 const sepoliaPrivateKey = process.env.SEPOLIA_PRIVATE_KEY;
 module.exports = {
-  solidity: "0.8.24",
+  solidity: "0.6.0",
 
   networks: {
     sepolia: {
