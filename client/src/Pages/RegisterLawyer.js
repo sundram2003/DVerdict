@@ -7,39 +7,48 @@ const Register = ({ passableItems }) => {
   console.log("passableItems", passableItems);
 
   const registerLawyer = async (name, phone, email, address, pubkey) => {
-    const { account, court, GAS, GAS_PRICE } = passableItems;
-    console.log(court);
     try {
-      const response = await court._methods
+      const { account, court, GAS, GAS_PRICE } = passableItems;
+      console.log("register lawyer in court", court);
+      // Call the contract method to register the lawyer
+      console.log("Calling registerLawyer method...");
+      const result = await court.methods
         .registerLawyer(name, phone, email, address, pubkey)
         .send({ from: account, gas: GAS, gasPrice: GAS_PRICE });
-      console.log("response in lawyer registered", response);
-      console.log("lawerId", lawyerId);
-      setLoading(false);
-      getValue(court); // Call getValue to update lawyerId after successful registration
-      // const lawyerId = response.events.lawyerRegistered.returnValues._lawyerId; // Assuming _lawyerId is the correct return value
-      setLawyerId(lawyerId);
+
+      // Log the result
+      console.log("Registration result:", result);
+
+      // Get the lawyer ID from the event
+      getValue(court);
     } catch (error) {
-      console.error(error);
+      console.error("Error registering lawyer:", error);
     }
   };
+  let num;
   const getValue = async (court) => {
-    console.log("courttt in getValye", court);
-    if (!court || !court._events || !court._events.lawyerRegistered) {
-      console.error("Court or its properties are undefined");
-      return;
+    try {
+      console.log("Getting lawyer ID...");
+      var events = await court?.events
+        .lawyerRegistered({ fromBlock: 0 })
+        .on("data", (event) => {
+          num = event?.lawyerRegistered?.returnValues._lawyerId;
+          setLawyerId(String(num));
+          console.log(
+            "Lawyer ID set:",
+            event?.lawyerRegistered?.returnValues._lawyerId
+          );
+        })
+        .on("changed", (event) => {
+          console.log("NEWWW", event);
+        })
+        .on("error", console.error);
+      console.log("Events:", events);
+    } catch (error) {
+      console.error("Error:", error);
     }
-    let events = await court?.events
-      ?.lawyerRegistered({ fromBlock: 0 })
-      ?.on("data", (event) => {
-        this.setState({ lawyerId: event.returnValues._lawyerId });
-      })
-      ?.on("changed", function (event) {
-        console.log("NEWWW", event);
-      })
-      ?.on("error", console.error);
-    console.log("events", events);
   };
+  console.log("lawyerId", lawyerId);
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -55,7 +64,9 @@ const Register = ({ passableItems }) => {
       const address = passableItems.account;
       const pubkey = person.publicKey; // Replace with actual public key logic
       registerLawyer(name, phone, email, address, pubkey);
+      downloadPrivateKey(person.privateKey);
       console.log("ress", name, email, phone, address, pubkey);
+      setLoading(false);
       // Download private key logic
     } catch (error) {
       console.error("Error:", error);
@@ -63,6 +74,21 @@ const Register = ({ passableItems }) => {
       // Handle error notification or display
     }
   };
+  const downloadPrivateKey = (_blobData) => {
+    var blob = new Blob([_blobData + "\n" + "keep this key saved"], {
+      type: "text/plain",
+    });
+    let url = window.URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display:none";
+    a.href = url;
+    a.download = "private_key";
+    a.click();
+    document.body.removeChild(a);
+  };
+  const lawyerIdd = Number(lawyerId);
+  console.log("pass", lawyerIdd);
   return (
     <div className="p-8 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
       <h1 className="text-2xl font-bold text-center">Register Lawyer</h1>
@@ -87,7 +113,7 @@ const Register = ({ passableItems }) => {
         />
         <input
           type="text"
-          placeholder={`Eth address: ${passableItems.account}`}
+          placeholder={`Eth address:${passableItems.account}`}
           disabled
           className="block w-full p-2 border border-gray-300 rounded bg-gray-100"
         />
@@ -101,7 +127,7 @@ const Register = ({ passableItems }) => {
       </form>
       {loading && <p className="text-center">Loading...</p>}
       {lawyerId && (
-        <h3 className="text-center">Your Lawyer Id is: {lawyerId}</h3>
+        <h3 className="text-center">Your Lawyer Id is: {lawyerIdd}</h3>
       )}
     </div>
   );
