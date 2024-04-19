@@ -1,0 +1,788 @@
+{
+  "contractName": "Court",
+  "abi": [
+    {
+      "inputs": [],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "uint256",
+          "name": "caseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "CaseCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "Createdcase",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_culpritId",
+          "type": "uint256"
+        }
+      ],
+      "name": "culpritRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_judgeId",
+          "type": "uint256"
+        }
+      ],
+      "name": "judgeRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_lawyerId",
+          "type": "uint256"
+        }
+      ],
+      "name": "lawyerRegistered",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "_victimId",
+          "type": "uint256"
+        }
+      ],
+      "name": "victimRegistered",
+      "type": "event"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_isLawyer",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isVictim",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isCulprit",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_ljId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_key",
+          "type": "string"
+        }
+      ],
+      "name": "addEncryptedKey",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "cases",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "judge",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "prosecutor",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "defence",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "victim_name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "culprit_name",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "details",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "culprits",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "pubkey",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "bool",
+          "name": "_isLawyer",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isVictim",
+          "type": "bool"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isCulprit",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_ljId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getEncryptedKey",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getEvidenceFileHashes",
+      "outputs": [
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTranscriptHashes",
+      "outputs": [
+        {
+          "internalType": "string[]",
+          "name": "",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "judges",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "pubkey",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "lawyers",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "pubkey",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_judge",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_prosecutor",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_defence",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_victimName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_culpritName",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_details",
+          "type": "string"
+        }
+      ],
+      "name": "newCase",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_pubkey",
+          "type": "string"
+        }
+      ],
+      "name": "registerCulprit",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_pubkey",
+          "type": "string"
+        }
+      ],
+      "name": "registerJudge",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_pubkey",
+          "type": "string"
+        }
+      ],
+      "name": "registerLawyer",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "_name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "_addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "_pubkey",
+          "type": "string"
+        }
+      ],
+      "name": "registerVictim",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_fileHash",
+          "type": "string"
+        }
+      ],
+      "name": "uploadEvidence",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_transcriptHash",
+          "type": "string"
+        }
+      ],
+      "name": "uploadTranscript",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "victims",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "name",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "phone",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "email",
+          "type": "string"
+        },
+        {
+          "internalType": "address",
+          "name": "addr",
+          "type": "address"
+        },
+        {
+          "internalType": "string",
+          "name": "pubkey",
+          "type": "string"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "networks": {
+    "11155111": {
+      "events": {
+        "0xd27034f23f8291ab86ab3da722bb1ce4ddfe94c2f69c7e91d98ff4c57b420ede": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_lawyerId",
+              "type": "uint256"
+            }
+          ],
+          "name": "lawyerRegistered",
+          "type": "event",
+          "signature": "0xd27034f23f8291ab86ab3da722bb1ce4ddfe94c2f69c7e91d98ff4c57b420ede"
+        },
+        "0xbbec6134d2e3aaa44ccc507cded6b0bdfd142003fbc5e69448081e5abdde6b59": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_judgeId",
+              "type": "uint256"
+            }
+          ],
+          "name": "Registeredjudge",
+          "type": "event",
+          "signature": "0xbbec6134d2e3aaa44ccc507cded6b0bdfd142003fbc5e69448081e5abdde6b59"
+        },
+        "0xca0f0263e10a85892496523b99b9450d1d6e40cbce860b150a7bbf062fbd4e40": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_caseId",
+              "type": "uint256"
+            }
+          ],
+          "name": "caseCreated",
+          "type": "event",
+          "signature": "0xca0f0263e10a85892496523b99b9450d1d6e40cbce860b150a7bbf062fbd4e40"
+        },
+        "0x84d938253a09f6f1c18877f03794c04e160d67d7ec43ef4aa6de4dd0db9720dc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_judgeId",
+              "type": "uint256"
+            }
+          ],
+          "name": "judgeRegistered",
+          "type": "event",
+          "signature": "0x84d938253a09f6f1c18877f03794c04e160d67d7ec43ef4aa6de4dd0db9720dc"
+        }
+      },
+      "links": {},
+      "address": "0x3dCcf0CBd5e35eECbCA6218b5E7424b3a08D0d2F",
+      "transactionHash": "0x96ecf5d5db7f51ee12bb9e04afc3976774eed964c7924bf653ab4632b6ad58b0"
+    },
+    "42": {
+      "events": {
+        "0xd27034f23f8291ab86ab3da722bb1ce4ddfe94c2f69c7e91d98ff4c57b420ede": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_lawyerId",
+              "type": "uint256"
+            }
+          ],
+          "name": "lawyerRegistered",
+          "type": "event",
+          "signature": "0xd27034f23f8291ab86ab3da722bb1ce4ddfe94c2f69c7e91d98ff4c57b420ede"
+        },
+        "0xbbec6134d2e3aaa44ccc507cded6b0bdfd142003fbc5e69448081e5abdde6b59": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_judgeId",
+              "type": "uint256"
+            }
+          ],
+          "name": "JudgeRegistered",
+          "type": "event",
+          "signature": "0xbbec6134d2e3aaa44ccc507cded6b0bdfd142003fbc5e69448081e5abdde6b59"
+        },
+        "0xca0f0263e10a85892496523b99b9450d1d6e40cbce860b150a7bbf062fbd4e40": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_caseId",
+              "type": "uint256"
+            }
+          ],
+          "name": "caseCreated",
+          "type": "event",
+          "signature": "0xca0f0263e10a85892496523b99b9450d1d6e40cbce860b150a7bbf062fbd4e40"
+        },
+        "0x84d938253a09f6f1c18877f03794c04e160d67d7ec43ef4aa6de4dd0db9720dc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_judgeId",
+              "type": "uint256"
+            }
+          ],
+          "name": "judgeRegistered",
+          "type": "event",
+          "signature": "0x84d938253a09f6f1c18877f03794c04e160d67d7ec43ef4aa6de4dd0db9720dc"
+        }
+      },
+      "links": {},
+      "address": "0xd6ca68418a8b26b8b363c864C9F429bb9f2ec7eb",
+      "transactionHash": "0xaf64713fb7d733b8f851e2f7e4139096b2e46b31b17c6426ac620d3f5a63f731"
+    },
+    "8995": {
+      "events": {
+        "0xd27034f23f8291ab86ab3da722bb1ce4ddfe94c2f69c7e91d98ff4c57b420ede": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_lawyerId",
+              "type": "uint256"
+            }
+          ],
+          "name": "lawyerRegistered",
+          "type": "event",
+          "signature": "0xd27034f23f8291ab86ab3da722bb1ce4ddfe94c2f69c7e91d98ff4c57b420ede"
+        },
+        "0x84d938253a09f6f1c18877f03794c04e160d67d7ec43ef4aa6de4dd0db9720dc": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_judgeId",
+              "type": "uint256"
+            }
+          ],
+          "name": "judgeRegistered",
+          "type": "event",
+          "signature": "0x84d938253a09f6f1c18877f03794c04e160d67d7ec43ef4aa6de4dd0db9720dc"
+        },
+        "0xca0f0263e10a85892496523b99b9450d1d6e40cbce860b150a7bbf062fbd4e40": {
+          "anonymous": false,
+          "inputs": [
+            {
+              "indexed": false,
+              "name": "_caseId",
+              "type": "uint256"
+            }
+          ],
+          "name": "caseCreated",
+          "type": "event",
+          "signature": "0xca0f0263e10a85892496523b99b9450d1d6e40cbce860b150a7bbf062fbd4e40"
+        }
+      },
+      "links": {},
+      "address": "0x4cA8837B5782FBeE238F9eeafCf998D7c23DCbeF",
+      "transactionHash": "0xb1eaa2c1c9632ec2d874e4c0fed1bb2db21392269d13ce9d195ca0ad4691658c"
+    }
+  }
+}
