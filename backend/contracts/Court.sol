@@ -44,7 +44,7 @@ contract Court {
         mapping(uint => string) encryptedKeys;
     }
     
-    struct Culprit {
+    struct Party {
         string name;
         uint phone;
         string email;
@@ -62,32 +62,28 @@ contract Court {
         string details;
         string[] evidenceFileHash; // Store IPFS hashes of evidence files
         string[] transcripts; // Store IPFS hashes of transcripts
+         string[] evidenceFileName;
     }
     
     // to store users and cases
     Lawyer[] public lawyers;
     Judge[] public judges;
-    Victim[] public victims;
-    Culprit[] public culprits;
+    Party[] public parties;
     Case[] public cases;
 
-    event victimRegistered(uint _victimId);
-    event culpritRegistered(uint _culpritId);
+    
+    event partyRegistered(uint _partyId);
     event lawyerRegistered(uint _lawyerId);
     event judgeRegistered(uint _judgeId);
     event Createdcase(uint _caseId);
 
-     function registerVictim(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public  {
-        Victim memory v = Victim(_name, _phone, _email, _addr, _pubkey);
-        victims.push(v);
-        emit victimRegistered(victims.length-1);
+     function registerParty(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public  {
+        Party memory v = Party(_name, _phone, _email, _addr, _pubkey);
+        parties.push(v);
+        emit partyRegistered(parties.length-1);
     
     }
-    function registerCulprit(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public {
-        Culprit memory c = Culprit(_name, _phone, _email, _addr, _pubkey);
-        culprits.push(c);
-        emit culpritRegistered(culprits.length-1);
-    }
+    
     function registerLawyer(string memory _name, uint _phone, string memory _email, address _addr, string memory _pubkey) public {
         Lawyer memory l = Lawyer(_name, _phone, _email, _addr, _pubkey);
         lawyers.push(l);
@@ -100,54 +96,40 @@ contract Court {
     }
     
     
-    event CaseCreated(uint indexed caseId);
+    event caseCreated(uint indexed caseId);
     
     constructor() public{
         owner = msg.sender;
     }
     
-    function newCase(address _judge, address _prosecutor, address _defence, string memory _victimName, string memory _culpritName, string memory _details) public onlyOwner {
-        Case memory newCaseInstance = Case({
-            judge: _judge,
-            prosecutor: _prosecutor,
-            defence: _defence,
-            victim_name: _victimName,
-            culprit_name: _culpritName,
-            details: _details,
-             evidenceFileHash: new string[](0),
-             transcripts: new string[](0)
-        });
+     function newCase(uint _judgeId, uint _lawyer1Id, uint _lawyer2Id, string memory _party_1_name, string memory _party_2_name, string memory _details) public onlyOwner {
+        string[] memory empty;
+        Case memory tcase = Case(judges[_judgeId].addr, lawyers[_lawyer1Id].addr, lawyers[_lawyer2Id].addr, _party_1_name, _party_2_name, _details, empty,empty, empty );
+        cases.push(tcase);
         
-        cases.push(newCaseInstance);
-        emit CaseCreated(cases.length - 1);
+        emit caseCreated(cases.length-1);
     }
-    function addEncryptedKey(bool _isLawyer,bool _isVictim, bool _isCulprit, uint _ljId, uint _caseId, string memory _key) public onlyOwner {
+    
+    function addEncryptedKey(bool _isLawyer , bool _isParty, uint _ljId, uint _caseId, string memory _key) public onlyOwner {
         if(_isLawyer) {
             lawyers[_ljId].encryptedKeys[_caseId] = _key;
         } 
-        else if(_isVictim)
+        else if(_isParty)
         {
-            victims[_ljId].encryptedKeys[_caseId] = _key;
+            parties[_ljId].encryptedKeys[_caseId] = _key;
         }
-        else if(_isCulprit)
-        {
-           culprits[_ljId].encryptedKeys[_caseId] = _key; 
-        }
+        
         else {
             judges[_ljId].encryptedKeys[_caseId] = _key;
         }
     }
-    function getEncryptedKey(bool _isLawyer, bool _isVictim, bool _isCulprit,uint _ljId, uint _caseId) public view returns(string memory) {
+    function getEncryptedKey(bool _isLawyer,bool _isParty,uint _ljId, uint _caseId) public view returns(string memory) {
         if(_isLawyer) {
             return lawyers[_ljId].encryptedKeys[_caseId];
         }
-        else if(_isVictim)
+        else if(_isParty)
         {
-           return victims[_ljId].encryptedKeys[_caseId];
-        }
-        else if(_isCulprit)
-        {
-           return culprits[_ljId].encryptedKeys[_caseId]; 
+           return parties[_ljId].encryptedKeys[_caseId];
         }
          else {
             return judges[_ljId].encryptedKeys[_caseId];

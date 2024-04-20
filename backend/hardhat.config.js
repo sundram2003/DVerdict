@@ -8,9 +8,9 @@ module.exports = {
 
   networks: {
     sepolia: {
-      url: `https://sepolia.infura.io/v3/4f6f1969edfd4d219a76aa2d36019f32`,
+      url: `https://sepolia.infura.io/v3/082b205d81564ce282b6abd191f663f5`,
       accounts: [
-        "eed0a0759494fb2eea63e743bdbeae73236d507e0f89b0137935226355b7f3fd",
+        "d5880bf304ff44ed5625e57f3a7450e706a10eea2c5c0e6639e2ee89dc3095c6",
       ],
       network_id: 11155111,
 

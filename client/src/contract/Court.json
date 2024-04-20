@@ -38,19 +38,6 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_culpritId",
-          "type": "uint256"
-        }
-      ],
-      "name": "culpritRegistered",
-      "type": "event"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
           "name": "_judgeId",
           "type": "uint256"
         }
@@ -77,11 +64,11 @@
         {
           "indexed": false,
           "internalType": "uint256",
-          "name": "_victimId",
+          "name": "_partyId",
           "type": "uint256"
         }
       ],
-      "name": "victimRegistered",
+      "name": "partyRegistered",
       "type": "event"
     },
     {
@@ -93,12 +80,7 @@
         },
         {
           "internalType": "bool",
-          "name": "_isVictim",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "_isCulprit",
+          "name": "_isParty",
           "type": "bool"
         },
         {
@@ -169,57 +151,13 @@
     {
       "inputs": [
         {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "culprits",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "phone",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "addr",
-          "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "pubkey",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
           "internalType": "bool",
           "name": "_isLawyer",
           "type": "bool"
         },
         {
           "internalType": "bool",
-          "name": "_isVictim",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "_isCulprit",
+          "name": "_isParty",
           "type": "bool"
         },
         {
@@ -414,34 +352,40 @@
     {
       "inputs": [
         {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "parties",
+      "outputs": [
+        {
           "internalType": "string",
-          "name": "_name",
+          "name": "name",
           "type": "string"
         },
         {
           "internalType": "uint256",
-          "name": "_phone",
+          "name": "phone",
           "type": "uint256"
         },
         {
           "internalType": "string",
-          "name": "_email",
+          "name": "email",
           "type": "string"
         },
         {
           "internalType": "address",
-          "name": "_addr",
+          "name": "addr",
           "type": "address"
         },
         {
           "internalType": "string",
-          "name": "_pubkey",
+          "name": "pubkey",
           "type": "string"
         }
       ],
-      "name": "registerCulprit",
-      "outputs": [],
-      "stateMutability": "nonpayable",
+      "stateMutability": "view",
       "type": "function"
     },
     {
@@ -538,7 +482,7 @@
           "type": "string"
         }
       ],
-      "name": "registerVictim",
+      "name": "registerParty",
       "outputs": [],
       "stateMutability": "nonpayable",
       "type": "function"
@@ -577,45 +521,6 @@
       "name": "uploadTranscript",
       "outputs": [],
       "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "victims",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "phone",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "addr",
-          "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "pubkey",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
       "type": "function"
     }
   ],
@@ -675,9 +580,23 @@
           "signature": "0x84d938253a09f6f1c18877f03794c04e160d67d7ec43ef4aa6de4dd0db9720dc"
         }
       },
+      "0xc967b2c61e97c14a57ec2cc19ef5344be059b658c0b3ab9850864d2c88c41583": {
+        "anonymous": false,
+        "inputs": [
+          {
+            "indexed": false,
+            "name": "_partyId",
+            "type": "uint256"
+          }
+        ],
+        "name": "partyRegistered",
+        "type": "event",
+        "signature": "0xc967b2c61e97c14a57ec2cc19ef5344be059b658c0b3ab9850864d2c88c41583"
+      },
       "links": {},
-      "address": "0x3dCcf0CBd5e35eECbCA6218b5E7424b3a08D0d2F",
-      "transactionHash": "0x96ecf5d5db7f51ee12bb9e04afc3976774eed964c7924bf653ab4632b6ad58b0"
+
+      "address": "0x071c511298617ff44e81C62Fc85BDbA4A8994768",
+      "transactionHash": "0xd647ed389a75087f7754fe6020a03b4aa3a608e73457de503cd6555b4c8f6cc3"
     },
     "42": {
       "events": {

@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
+import RegisterParty from "./RegisterParty";
 import Navbar from "../components/Navbar";
 import Layout from "../components/Layout";
 import Login from "./Login";
@@ -32,6 +32,10 @@ const Main = (props) => {
         <Route
           path="register-judge"
           element={<RegisterJudge passableItems={props.passableItems} />}
+        />
+        <Route
+          path="register-user"
+          element={<RegisterParty passableItems={props.passableItems} />}
         />
         <Route path="*" element={<Error />} />
       </Routes>

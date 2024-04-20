@@ -35,7 +35,7 @@ const Dapp = () => {
 
       const networkId = await web3.eth.net.getId();
       console.log("networkId", networkId);
-      console.log("Court", Court);
+      console.log("Court in Dapp", Court);
       const networkData = Court.networks[networkId];
       console.log("networkData", networkData);
       if (networkData) {
@@ -43,6 +43,7 @@ const Dapp = () => {
           Court.abi,
           networkData.address
         );
+        console.log("court instance", courtInstance);
         setCourt(courtInstance);
         setGAS(500000);
         setGAS_PRICE("20000000000");

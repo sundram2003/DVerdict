@@ -1,87 +1,70 @@
 import React, { useState } from "react";
 import { createIdentity } from "eth-crypto";
-const Register = ({ passableItems }) => {
+
+const RegisterParty = ({ passableItems }) => {
   const [loading, setLoading] = useState(false);
-  const [judgeId, setJudgeId] = useState("");
+  const [partyId, setPartyId] = useState("");
   const { publicKey, privateKey } = createIdentity();
-  console.log("publicKey", publicKey);
-  console.log("passableItems", passableItems);
-  const registerJudge = async (name, phone, email, address, pubkey) => {
+
+  const registerParty = async (name, phone, email, address, pubkey) => {
     try {
       const { account, court, GAS, GAS_PRICE } = passableItems;
-      console.log("register judge in court", court);
-      // Call the contract method to register the lawyer
-      console.log("Calling register judge method...");
       const result = await court.methods
-        .registerJudge(name, phone, email, address, pubkey)
+        .registerParty(name, phone, email, address, pubkey)
         .send({ from: account, gas: GAS, gasPrice: GAS_PRICE });
 
-      // Log the result
       console.log("Registration result:", result);
 
-      // Get the lawyer ID from the event
       getValue(court);
     } catch (error) {
-      console.error("Error registering lawyer:", error);
+      console.error("Error registering party:", error);
     }
   };
+
   let num;
   const getValue = async (court) => {
     try {
-      console.log("Getting judge ID...");
+      console.log("Getting party ID...");
       var events = await court?.events
-        ?.judgeRegistered({ fromBlock: 0 })
-        ?.on("data", (event) => {
-          num = event?.returnValues?._judgeId;
-          setJudgeId(String(num));
-          console.log("Judge ID set:", event?.returnValues?._judgeId);
+        ?.partyRegistered({ fromBlock: 0 })
+        .on("data", (event) => {
+          num = event?.returnValues._partyId;
+          setPartyId(String(num));
+          console.log("Party ID set:", event?.returnValues._partyId);
         })
         ?.on("changed", (event) => {
           console.log("NEWWW", event);
         })
         ?.on("error", console.error);
       console.log("Events:", events);
-      // court.events
-      //   .judgeRegistered({ fromBlock: 0 })
-      //   ?.on("data", (event) => {
-      //     setJudgeId(event?.returnValues?._judgeId);
-      //   })
-      //   ?.on("changed", (event) => {
-      //     console.log("NEWWW", event);
-      //   })
-      //   ?.on("error", console.error);
     } catch (error) {
-      console.error(error);
+      console.error("Error:", error);
     }
   };
+
   const handleSubmit = async (e) => {
-    console.log("Inside handle of register judge", e.target.elements);
     e.preventDefault();
     setLoading(true);
     try {
-      console.log("Form submitted");
       const person = {
         publicKey: publicKey,
         privateKey: privateKey,
       };
-      //   console.log("add public key to contract", person.publicKey);
-      var name = e.target.elements.name.value;
-      var email = e.target.elements.email.value;
-      var phone = e.target.elements.phone.value;
-      var address = passableItems.account;
-      var pubk = person.publicKey;
-      registerJudge(name, phone, email, address, pubk);
+      const name = e.target.elements.name.value;
+      const email = e.target.elements.email.value;
+      const phone = e.target.elements.phone.value;
+      const address = passableItems.account;
+      const pubkey = person.publicKey;
+
+      registerParty(name, phone, email, address, pubkey);
       downloadPrivateKey(person.privateKey);
-      console.log("form data", (name, phone, email, address, pubk));
       setLoading(false);
-      // downloadPrivateKey(person.privateKey);
     } catch (error) {
       console.error("Error:", error);
       setLoading(false);
-      // Handle error notification or display
     }
   };
-  // Download private key logic
+
   const downloadPrivateKey = (_blobData) => {
     var blob = new Blob([_blobData + "\n" + "keep this key saved"], {
       type: "text/plain",
@@ -95,11 +78,12 @@ const Register = ({ passableItems }) => {
     a.click();
     document.body.removeChild(a);
   };
-  const judgeIdd = Number(judgeId);
-  console.log("judgeId", judgeIdd);
+
+  const partyIdd = Number(partyId);
+
   return (
     <div className="p-8 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
-      <h1 className="text-2xl font-bold text-center">Register Judge</h1>
+      <h1 className="text-2xl font-bold text-center">Register Party</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
         <input
           type="text"
@@ -121,26 +105,22 @@ const Register = ({ passableItems }) => {
         />
         <input
           type="text"
-          cursor="not-allowed"
           placeholder={`Eth address: ${passableItems.account}`}
           disabled
-          style={{ cursor: "not-allowed" }}
-          className="block w-full p-2 border border-gray-300 rounded"
+          className="block w-full p-2 border border-gray-300 rounded bg-gray-100"
         />
         <button
           type="submit"
           disabled={loading}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+          className="block w-full p-2 bg-blue-500 text-white font-semibold rounded"
         >
           {loading ? "Processing..." : "Proceed to Add the user"}
         </button>
       </form>
-      {loading && <p className="mt-4 text-center">Loading...</p>}
-      {judgeId && (
-        <h3 className="mt-4 text-center">Your Judge Id is: {judgeIdd}</h3>
-      )}
+      {loading && <p className="text-center">Loading...</p>}
+      {partyId && <h3 className="text-center">Your Party ID is: {partyIdd}</h3>}
     </div>
   );
 };
 
-export default Register;
+export default RegisterParty;
