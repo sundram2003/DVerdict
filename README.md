@@ -60,8 +60,8 @@ Team Name: Spark Wizards
  |--------------------------------|---------------------------------------|--------------------------|-------------------------------  |
  | **Sundram Mishra**                |    sundramm2003@gmail.com          |            CSE           |https://github.com/KIRTIKUMARKK21| 
  | **Akshat Verma**               |       akshatvermanike@gmail.com       |            ME            | https://github.com/akshatvermavi|
- | **Dipti Kumari**                |     dipti@gmail.com        |            CSE           |  |
- | **Ayati Sonkar**                 |       ayati@gmail.com              |            CSE           |   |          
+ | **Dipti Kumari**                |     dipti@gmail.com        |            CSE           | https://github.com/Codipk |
+ | **Ayati Sonkar**                 |       ayati16j2003@gmail.com              |            CSE           | https://github.com/Ayatisonkar  |          
 
 ### Made at
 <a href="https://hack36.com"> <img src="https://cutt.ly/BuiltAtHack36" height=24px> </a>
