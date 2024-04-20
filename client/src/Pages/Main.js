@@ -6,15 +6,24 @@ import Layout from "../components/Layout";
 import Login from "./Login";
 import AddCase from "./AddCase";
 import RegisterLawyer from "./RegisterLawyer";
+import Room from "./Room";
 // import WrappedNormalRegisterLawyerForm from "./RegisterLawyer";
 import RegisterJudge from "./RegisterJudge";
 import Error from "./Error";
 const Main = (props) => {
-  console.log("propss", props.passableItems);
+  console.log("propss passable", props.passableItems);
+  console.log("propsss ", props);
   return (
     <>
       <Navbar />
       <Routes>
+        <Route path="home" element={<Layout props={props} />} />
+        <Route
+          path="/"
+          element={
+            <Login passableItems={props.passableItems} user={props.user} />
+          }
+        />
         <Route
           path="login"
           element={
@@ -38,6 +47,7 @@ const Main = (props) => {
           element={<RegisterParty passableItems={props.passableItems} />}
         />
         <Route path="*" element={<Error />} />
+        <Route path="/home/:caseId" element={<Room />} />
       </Routes>
     </>
   );

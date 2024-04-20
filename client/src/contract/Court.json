@@ -3,21 +3,9 @@
   "abi": [
     {
       "inputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "constructor"
-    },
-    {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": true,
-          "internalType": "uint256",
-          "name": "caseId",
-          "type": "uint256"
-        }
-      ],
-      "name": "CaseCreated",
-      "type": "event"
     },
     {
       "anonymous": false,
@@ -29,7 +17,7 @@
           "type": "uint256"
         }
       ],
-      "name": "Createdcase",
+      "name": "caseCreated",
       "type": "event"
     },
     {
@@ -59,28 +47,11 @@
       "type": "event"
     },
     {
-      "anonymous": false,
-      "inputs": [
-        {
-          "indexed": false,
-          "internalType": "uint256",
-          "name": "_partyId",
-          "type": "uint256"
-        }
-      ],
-      "name": "partyRegistered",
-      "type": "event"
-    },
-    {
+      "constant": false,
       "inputs": [
         {
           "internalType": "bool",
           "name": "_isLawyer",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "_isParty",
           "type": "bool"
         },
         {
@@ -101,10 +72,12 @@
       ],
       "name": "addEncryptedKey",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
           "internalType": "uint256",
@@ -121,22 +94,22 @@
         },
         {
           "internalType": "address",
-          "name": "prosecutor",
+          "name": "lawyer1",
           "type": "address"
         },
         {
           "internalType": "address",
-          "name": "defence",
+          "name": "lawyer2",
           "type": "address"
         },
         {
           "internalType": "string",
-          "name": "victim_name",
+          "name": "party_1_name",
           "type": "string"
         },
         {
           "internalType": "string",
-          "name": "culprit_name",
+          "name": "party_2_name",
           "type": "string"
         },
         {
@@ -145,19 +118,47 @@
           "type": "string"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getCaseAddresses",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "judge",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "lawyer1",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "lawyer2",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [
         {
           "internalType": "bool",
           "name": "_isLawyer",
-          "type": "bool"
-        },
-        {
-          "internalType": "bool",
-          "name": "_isParty",
           "type": "bool"
         },
         {
@@ -179,10 +180,43 @@
           "type": "string"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_evidenceNo",
+          "type": "uint256"
+        }
+      ],
+      "name": "getEvidence",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "FileHash",
+          "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "FileType",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [
         {
           "internalType": "uint256",
@@ -190,18 +224,46 @@
           "type": "uint256"
         }
       ],
-      "name": "getEvidenceFileHashes",
+      "name": "getEvidenceCount",
       "outputs": [
         {
-          "internalType": "string[]",
+          "internalType": "uint256",
           "name": "",
-          "type": "string[]"
+          "type": "uint256"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_caseId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_transcriptNo",
+          "type": "uint256"
+        }
+      ],
+      "name": "getTranscript",
+      "outputs": [
+        {
+          "internalType": "string",
+          "name": "",
+          "type": "string"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
       "inputs": [
         {
           "internalType": "uint256",
@@ -209,18 +271,20 @@
           "type": "uint256"
         }
       ],
-      "name": "getTranscriptHashes",
+      "name": "getTranscriptsCount",
       "outputs": [
         {
-          "internalType": "string[]",
+          "internalType": "uint256",
           "name": "",
-          "type": "string[]"
+          "type": "uint256"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
           "internalType": "uint256",
@@ -256,10 +320,12 @@
           "type": "string"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [
         {
           "internalType": "uint256",
@@ -295,34 +361,36 @@
           "type": "string"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
+      "constant": false,
       "inputs": [
         {
-          "internalType": "address",
-          "name": "_judge",
-          "type": "address"
+          "internalType": "uint256",
+          "name": "_judgeId",
+          "type": "uint256"
         },
         {
-          "internalType": "address",
-          "name": "_prosecutor",
-          "type": "address"
+          "internalType": "uint256",
+          "name": "_lawyer1Id",
+          "type": "uint256"
         },
         {
-          "internalType": "address",
-          "name": "_defence",
-          "type": "address"
+          "internalType": "uint256",
+          "name": "_lawyer2Id",
+          "type": "uint256"
         },
         {
           "internalType": "string",
-          "name": "_victimName",
+          "name": "_party_1_name",
           "type": "string"
         },
         {
           "internalType": "string",
-          "name": "_culpritName",
+          "name": "_party_2_name",
           "type": "string"
         },
         {
@@ -333,10 +401,12 @@
       ],
       "name": "newCase",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
+      "constant": true,
       "inputs": [],
       "name": "owner",
       "outputs": [
@@ -346,49 +416,12 @@
           "type": "address"
         }
       ],
+      "payable": false,
       "stateMutability": "view",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "uint256",
-          "name": "",
-          "type": "uint256"
-        }
-      ],
-      "name": "parties",
-      "outputs": [
-        {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "phone",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "addr",
-          "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "pubkey",
-          "type": "string"
-        }
-      ],
-      "stateMutability": "view",
-      "type": "function"
-    },
-    {
+      "constant": false,
       "inputs": [
         {
           "internalType": "string",
@@ -418,10 +451,12 @@
       ],
       "name": "registerJudge",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
+      "constant": false,
       "inputs": [
         {
           "internalType": "string",
@@ -451,43 +486,12 @@
       ],
       "name": "registerLawyer",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
-      "inputs": [
-        {
-          "internalType": "string",
-          "name": "_name",
-          "type": "string"
-        },
-        {
-          "internalType": "uint256",
-          "name": "_phone",
-          "type": "uint256"
-        },
-        {
-          "internalType": "string",
-          "name": "_email",
-          "type": "string"
-        },
-        {
-          "internalType": "address",
-          "name": "_addr",
-          "type": "address"
-        },
-        {
-          "internalType": "string",
-          "name": "_pubkey",
-          "type": "string"
-        }
-      ],
-      "name": "registerParty",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
-    },
-    {
+      "constant": false,
       "inputs": [
         {
           "internalType": "uint256",
@@ -498,14 +502,21 @@
           "internalType": "string",
           "name": "_fileHash",
           "type": "string"
+        },
+        {
+          "internalType": "string",
+          "name": "_fileType",
+          "type": "string"
         }
       ],
       "name": "uploadEvidence",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
+      "constant": false,
       "inputs": [
         {
           "internalType": "uint256",
@@ -514,12 +525,13 @@
         },
         {
           "internalType": "string",
-          "name": "_transcriptHash",
+          "name": "_transcript",
           "type": "string"
         }
       ],
       "name": "uploadTranscript",
       "outputs": [],
+      "payable": false,
       "stateMutability": "nonpayable",
       "type": "function"
     }
@@ -595,8 +607,8 @@
       },
       "links": {},
 
-      "address": "0x071c511298617ff44e81C62Fc85BDbA4A8994768",
-      "transactionHash": "0xd647ed389a75087f7754fe6020a03b4aa3a608e73457de503cd6555b4c8f6cc3"
+      "address": "0xB57f85fbA21412d16d2cd0Ae3A2758CEafD2412b",
+      "transactionHash": "0x5f6b3040364c938eff8941ceb13060aabd975f2d8f72f035778a5de34c65b873"
     },
     "42": {
       "events": {
@@ -654,8 +666,8 @@
         }
       },
       "links": {},
-      "address": "0xd6ca68418a8b26b8b363c864C9F429bb9f2ec7eb",
-      "transactionHash": "0xaf64713fb7d733b8f851e2f7e4139096b2e46b31b17c6426ac620d3f5a63f731"
+      "address": "0xF49b7Ac0dCe90123602e9AB038119112de18429b",
+      "transactionHash": "0xd6f4129ed1d874502f44b4adefef5fd726880d44d239f31913db650b52dc7c12"
     },
     "8995": {
       "events": {

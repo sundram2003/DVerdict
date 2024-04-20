@@ -32,11 +32,11 @@ const AddCase = ({ passableItems }) => {
       console.log("judgeId", judgeId);
       console.log("lawyer1Id", lawyer1Id);
       console.log("lawer2Id", lawyer2Id);
-      console.log("party1name", party1name);
-      console.log("party2name", party2name);
+      console.log("party1Id", party1name);
+      console.log("party2Id", party2name);
       console.log("details", details);
       // const r = await court;
-      // console.log("before jjust", r);
+      console.log("before jjust resultttttttttttt");
       const result = await court?.methods
         ?.newCase(
           judgeId,
@@ -47,7 +47,7 @@ const AddCase = ({ passableItems }) => {
           details
         )
         ?.send({ from: account, gas: GAS, gasPrice: GAS_PRICE });
-      console.log("New case result:", result);
+      console.log("New case resultttttttttttt:", result);
       // setLoading(false);
       getValue(court);
     } catch (error) {
@@ -55,13 +55,16 @@ const AddCase = ({ passableItems }) => {
       setLoading(false);
     }
   };
+  let num;
 
   const getValue = async (court) => {
     try {
       const events = await court?.events
         ?.caseCreated({ fromBlock: 0 })
         ?.on("data", (event) => {
-          setCaseId(event?.returnValues?._caseId);
+          num = event?.returnValues?._caseId;
+          console.log("Judge ID set:", event?.returnValues?._caseId);
+          setCaseId(String(num));
         })
         ?.on("changed", (event) => {
           console.log("NEWWW", event);
@@ -75,52 +78,28 @@ const AddCase = ({ passableItems }) => {
   };
 
   const handleSubmit = async (e) => {
+    console.log("eventt", e);
     e.preventDefault();
-    // setLoading(true);
-    const { JudgeId, Lawyer1Id, Lawyer2Id, Party1, Party2, Details } =
-      e.target.elements;
-
-    // Check if any of the form fields are empty
-    if (
-      !JudgeId.value ||
-      !Lawyer1Id.value ||
-      !Lawyer2Id.value ||
-      !Party1.value ||
-      !Party2.value ||
-      !Details.value
-    ) {
-      alert("All fields are mandatory");
-      return;
-    }
-
-    // Set loading state to true
     setLoading(true);
-
+    const { judgeId, lawyer1Id, lawyer2Id, party1name, party2name, details } =
+      e.target.elements;
     try {
-      // const p = passableItems;
       await newCase(
-        JudgeId.value,
-        Lawyer1Id.value,
-        Lawyer2Id.value,
-        Party1.value,
-        Party2.value,
-        Details.value
+        judgeId?.value,
+        lawyer1Id?.value,
+        lawyer2Id?.value,
+        party1name?.value,
+        party2name?.value,
+        details?.value
       );
-      // Reset form fields
-      // JudgeId.value = "";
-      // Lawyer1Id.value = "";
-      // Lawyer2Id.value = "";
-      // Party1.value = "";
-      // Party2.value = "";
-      // Details.value = "";
+
       console.log("inside the newcase handle sumbitadd case ", passableItems);
-      console.log("judgeId", JudgeId.value);
-      console.log("lawyer1Id", Lawyer1Id.value);
-      console.log("lawer2Id", Lawyer2Id.value);
-      console.log("party1name", Party1.value);
-      console.log("party2name", Party2.value);
-      console.log("details", Details.value);
-      setLoading(false);
+      console.log("judgeId", judgeId?.value);
+      console.log("lawyer1Id", lawyer1Id?.value);
+      console.log("lawer2Id", lawyer2Id?.value);
+      console.log("party1name", party1name?.value);
+      console.log("party2name", party2name?.value);
+      console.log("details", details?.value);
     } catch (error) {
       console.error("Error adding new case:", error);
       toast.error("Failed to add case. Please try again.");
@@ -150,7 +129,7 @@ const AddCase = ({ passableItems }) => {
       console.error("Error checking authentication:", error);
     }
   };
-
+  const caseIdd = Number(caseId);
   return auth ? (
     <div className="flex justify-center items-center h-screen">
       <form className="w-full max-w-md" onSubmit={handleSubmit}>
@@ -158,7 +137,7 @@ const AddCase = ({ passableItems }) => {
           <input
             type="text"
             placeholder="Judge Id"
-            name="JudgeId"
+            name="judgeId"
             className="border rounded w-full py-2 px-3"
           />
         </div>
@@ -166,7 +145,7 @@ const AddCase = ({ passableItems }) => {
           <input
             type="text"
             placeholder="Lawyer 1 Id"
-            name="Lawyer1Id"
+            name="lawyer1Id"
             className="border rounded w-full py-2 px-3"
           />
         </div>
@@ -174,30 +153,30 @@ const AddCase = ({ passableItems }) => {
           <input
             type="text"
             placeholder="Lawyer 2 Id"
-            name="Lawyer2Id"
+            name="lawyer2Id"
             className="border rounded w-full py-2 px-3"
           />
         </div>
         <div className="mb-4">
           <input
             type="text"
-            placeholder="Party 1"
-            name="Party1"
+            placeholder="Party 1Id"
+            name="party1name"
             className="border rounded w-full py-2 px-3"
           />
         </div>
         <div className="mb-4">
           <input
             type="text"
-            placeholder="Party 2"
-            name="Party2"
+            placeholder="Party2 Id"
+            name="party2name"
             className="border rounded w-full py-2 px-3"
           />
         </div>
         <div className="mb-4">
           <textarea
             placeholder="Details"
-            name="Details"
+            name="details"
             className="border rounded w-full py-2 px-3"
           />
         </div>
@@ -211,7 +190,7 @@ const AddCase = ({ passableItems }) => {
             Proceed to Add the case
           </button>
         </div>
-        <h3 id="lawyerId" className="hidden">
+        <h3 id="lawyerId" className="hidden mt-3">
           Your Case Id is: {caseId}
         </h3>
       </form>
