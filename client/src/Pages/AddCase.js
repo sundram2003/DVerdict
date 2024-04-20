@@ -4,53 +4,154 @@ import "react-toastify/dist/ReactToastify.css";
 
 const AddCase = ({ passableItems }) => {
   const [auth, setAuth] = useState(false);
-  const [lawyerId, setLawyerId] = useState("");
-  const { court, GAS, GAS_PRICE } = passableItems;
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const { account } = passableItems;
-        const owner = await court.methods.owner().call();
-        if (owner === account) {
-          setAuth(true);
-        }
-      } catch (error) {
-        console.error("Error checking authentication:", error);
-      }
-    };
-
-    checkAuth();
-  }, [court, passableItems]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    toast.info("Adding case...");
+  const [loading, setLoading] = useState(false);
+  const [caseId, setCaseId] = useState("");
+  // const [error, setError] = useState(false);
+  const newCase = async (
+    judgeId,
+    lawyer1Id,
+    lawyer2Id,
+    party1name,
+    party2name,
+    details
+  ) => {
+    console.log(
+      "infooo",
+      judgeId,
+      lawyer1Id,
+      lawyer2Id,
+      party1name,
+      party2name,
+      details
+    );
     try {
-      const formData = new FormData(e.target);
-      const JudgeId = formData.get("JudgeId");
-      const Lawyer1Id = formData.get("Lawyer1Id");
-      const Lawyer2Id = formData.get("Lawyer2Id");
-      const Party1 = formData.get("Party1");
-      const Party2 = formData.get("Party2");
-      const Details = formData.get("Details");
-
-      await court.methods
-        .newCase(JudgeId, Lawyer1Id, Lawyer2Id, Party1, Party2, Details)
-        .send({ from: passableItems.account, gas: GAS, gasPrice: GAS_PRICE });
-      toast.success("Case added successfully!");
-      const events = await court.events
-        .caseCreated({ fromBlock: 0 })
-        .on("data", (event) => {
-          setLawyerId(event.returnValues._caseId);
-        });
+      const { account, court, GAS, GAS_PRICE } = passableItems;
+      // setLoading(true);
+      console.log("inside add case ", passableItems);
+      console.log("judgeId", judgeId);
+      console.log("lawyer1Id", lawyer1Id);
+      console.log("lawer2Id", lawyer2Id);
+      console.log("party1name", party1name);
+      console.log("party2name", party2name);
+      console.log("details", details);
+      // const r = await court;
+      // console.log("before jjust", r);
+      const result = await court?.methods
+        ?.newCase(
+          judgeId,
+          lawyer1Id,
+          lawyer2Id,
+          party1name,
+          party2name,
+          details
+        )
+        ?.send({ from: account, gas: GAS, gasPrice: GAS_PRICE });
+      console.log("New case result:", result);
+      // setLoading(false);
+      getValue(court);
     } catch (error) {
-      console.error("Error adding case:", error);
-      toast.error("Failed to add case. Please try again.");
+      console.error("Error creating new case:", error);
+      setLoading(false);
     }
   };
 
-  return true ? (
+  const getValue = async (court) => {
+    try {
+      const events = await court?.events
+        ?.caseCreated({ fromBlock: 0 })
+        ?.on("data", (event) => {
+          setCaseId(event?.returnValues?._caseId);
+        })
+        ?.on("changed", (event) => {
+          console.log("NEWWW", event);
+        })
+        ?.on("error", (error) => {
+          console.error("Error fetching case ID:", error);
+        });
+    } catch (error) {
+      console.error("Error fetching case ID:", error);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    // setLoading(true);
+    const { JudgeId, Lawyer1Id, Lawyer2Id, Party1, Party2, Details } =
+      e.target.elements;
+
+    // Check if any of the form fields are empty
+    if (
+      !JudgeId.value ||
+      !Lawyer1Id.value ||
+      !Lawyer2Id.value ||
+      !Party1.value ||
+      !Party2.value ||
+      !Details.value
+    ) {
+      alert("All fields are mandatory");
+      return;
+    }
+
+    // Set loading state to true
+    setLoading(true);
+
+    try {
+      // const p = passableItems;
+      await newCase(
+        JudgeId.value,
+        Lawyer1Id.value,
+        Lawyer2Id.value,
+        Party1.value,
+        Party2.value,
+        Details.value
+      );
+      // Reset form fields
+      // JudgeId.value = "";
+      // Lawyer1Id.value = "";
+      // Lawyer2Id.value = "";
+      // Party1.value = "";
+      // Party2.value = "";
+      // Details.value = "";
+      console.log("inside the newcase handle sumbitadd case ", passableItems);
+      console.log("judgeId", JudgeId.value);
+      console.log("lawyer1Id", Lawyer1Id.value);
+      console.log("lawer2Id", Lawyer2Id.value);
+      console.log("party1name", Party1.value);
+      console.log("party2name", Party2.value);
+      console.log("details", Details.value);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error adding new case:", error);
+      toast.error("Failed to add case. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    checkAuth();
+  }, []);
+
+  const checkAuth = async () => {
+    try {
+      const { account, court } = passableItems;
+      console.log("passableee items in add case", passableItems);
+      const owner = await court?.methods?.owner().call();
+      console.log("owner of page", owner);
+      console.log("account of page", account);
+      if (owner === account) {
+        // If the current account is the owner, set auth to true
+        setAuth(true);
+        console.log("Authenticated as owner");
+      }
+    } catch (error) {
+      toast.error("Failed to authenticate. Only of admin.");
+      console.error("Error checking authentication:", error);
+    }
+  };
+
+  return auth ? (
     <div className="flex justify-center items-center h-screen">
       <form className="w-full max-w-md" onSubmit={handleSubmit}>
         <div className="mb-4">
@@ -111,7 +212,7 @@ const AddCase = ({ passableItems }) => {
           </button>
         </div>
         <h3 id="lawyerId" className="hidden">
-          Your Case Id is: {lawyerId}
+          Your Case Id is: {caseId}
         </h3>
       </form>
     </div>
