@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { HiMenuAlt4, HiX } from "react-icons/hi";
 import { Link } from "react-router-dom";
-
+import Verdict from "../assets/DVerdict__1_-removebg-preview (1).png";
 const Nav = () => {
   const [toggleMenu, setToggleMenu] = useState(false);
 
@@ -12,12 +12,22 @@ const Nav = () => {
   return (
     <nav className="bg-gray-800 p-4 flex justify-between items-center">
       <div>
-        <img src={""} alt="logo" className="w-32 cursor-pointer" />
+        <Link to="/">
+          <img src={Verdict} alt="Dverdict" className="w-32 h-18" />
+        </Link>
+        {/* <img
+          src={Verdict}
+          alt="DVerdict"
+          height={18}
+          width={18}
+          href="/"
+          className="w-32 cursor-pointer"
+        /> */}
       </div>
 
       {/* Desktop Menu */}
       <ul className="hidden md:flex space-x-4 text-white">
-        {["Add Case", "Register Lawyer", "Register Judge", "Register User"].map(
+        {["Add Case", "Register Lawyer", "Register Judge"].map(
           (item, index) => (
             <li key={index}>
               <Link
@@ -63,7 +73,7 @@ const Nav = () => {
             "Add Case",
             "Register Lawyer",
             "Register Judge",
-            "Register User",
+            // "Register User",
           ].map((item, index) => (
             <Link
               key={index}

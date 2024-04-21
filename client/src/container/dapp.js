@@ -47,6 +47,14 @@ const Dapp = () => {
         setCourt(courtInstance);
         setGAS(500000);
         setGAS_PRICE("20000000000");
+        // const gasEstimate = await courtInstance.methods
+        //   .add(/* pass your method arguments here */)
+        //   .estimateGas({ from: accounts[0] });
+        // console.log("Estimated gas:", gasEstimate);
+
+        // const gasPrice = await web3.eth.getGasPrice();
+        // console.log("Current gas price:", gasPrice);
+
         setLoading(false);
       } else {
         window.alert("Court contract not deployed to detected network.");

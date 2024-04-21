@@ -2,11 +2,11 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "E:\\HAACK36.0\\Dverdict\\backend\\contracts\\Court.sol": {
-      "lastModificationDate": 1713595905392,
-      "contentHash": "737438048b34fe74ad5d31fc050479ac",
+      "lastModificationDate": 1713623238671,
+      "contentHash": "67b348ce44303c96b012bd495ac999e2",
       "sourceName": "contracts/Court.sol",
       "solcConfig": {
-        "version": "0.6.0",
+        "version": "0.5.0",
         "settings": {
           "optimizer": {
             "enabled": false,
@@ -30,7 +30,7 @@
       },
       "imports": [],
       "versionPragmas": [
-        "^0.6.0"
+        "^0.5.0"
       ],
       "artifacts": [
         "Court"
