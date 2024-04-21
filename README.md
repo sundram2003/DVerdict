@@ -58,7 +58,7 @@ Team Name: Spark Wizards
 
  | Name                           |              Email ID                 |          Branch          |     github                      |  
  |--------------------------------|---------------------------------------|--------------------------|-------------------------------  |
- | **Sundram Mishra**                |    sundramm2003@gmail.com          |            CSE           |https://github.com/KIRTIKUMARKK21| 
+ | **Sundram Mishra**                |    sundramm2003@gmail.com          |            CSE           |https://github.com/sundram2003| 
  | **Akshat Verma**               |       akshatvermanike@gmail.com       |            ME            | https://github.com/akshatvermavi|
  | **Dipti Kumari**                |     dipti@gmail.com        |            CSE           | https://github.com/Codipk |
  | **Ayati Sonkar**                 |       ayati16j2003@gmail.com              |            CSE           | https://github.com/Ayatisonkar  |          
