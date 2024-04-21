@@ -63,7 +63,7 @@ const AddCase = ({ passableItems }) => {
         ?.caseCreated({ fromBlock: 0 })
         ?.on("data", (event) => {
           num = event?.returnValues?._caseId;
-          console.log("Judge ID set:", event?.returnValues?._caseId);
+          console.log("CaseID set:", event?.returnValues?._caseId);
           setCaseId(String(num));
         })
         ?.on("changed", (event) => {
@@ -116,7 +116,7 @@ const AddCase = ({ passableItems }) => {
     try {
       const { account, court } = passableItems;
       console.log("passableee items in add case", passableItems);
-      const owner = await court?.methods?.owner().call();
+      const owner = await court?.methods?.owner()?.call();
       console.log("owner of page", owner);
       console.log("account of page", account);
       if (owner === account) {
@@ -129,10 +129,15 @@ const AddCase = ({ passableItems }) => {
       console.error("Error checking authentication:", error);
     }
   };
+
   const caseIdd = Number(caseId);
+  console.log("caseID", caseIdd);
   return auth ? (
-    <div className="flex justify-center items-center h-screen">
-      <form className="w-full max-w-md" onSubmit={handleSubmit}>
+    <div className="flex justify-center items-center h-screen  bg-slate-950">
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-md bg-gradient-to-br from-slate-800 to-slate-900 shadow-slate-200 shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4"
+      >
         <div className="mb-4">
           <input
             type="text"
@@ -160,7 +165,7 @@ const AddCase = ({ passableItems }) => {
         <div className="mb-4">
           <input
             type="text"
-            placeholder="Party 1Id"
+            placeholder="Culprit Name"
             name="party1name"
             className="border rounded w-full py-2 px-3"
           />
@@ -168,16 +173,16 @@ const AddCase = ({ passableItems }) => {
         <div className="mb-4">
           <input
             type="text"
-            placeholder="Party2 Id"
+            placeholder="Victim Name"
             name="party2name"
-            className="border rounded w-full py-2 px-3"
+            className="border rounded w-full py-2 px-3 bg-white"
           />
         </div>
         <div className="mb-4">
           <textarea
             placeholder="Details"
             name="details"
-            className="border rounded w-full py-2 px-3"
+            className="border rounded w-full py-2 px-3 bg-white"
           />
         </div>
 
@@ -190,13 +195,17 @@ const AddCase = ({ passableItems }) => {
             Proceed to Add the case
           </button>
         </div>
-        <h3 id="lawyerId" className="hidden mt-3">
-          Your Case Id is: {caseId}
-        </h3>
+        {loading && <p className=" mt-4 text-center">Loading...</p>}
+        {caseId && (
+          <h3 className="text-center text-white">Your Case Id is: {caseIdd}</h3>
+        )}
+        {/* <h3 className="hidden mt-3 text-white">Your Case Id is: {caseIdd}</h3> */}
       </form>
     </div>
   ) : (
-    <h1 className="text-center mt-8">YOU ARE NOT AN ADMIN</h1>
+    <h1 className="text-center  h-screen  bg-slate-950 bg-slate-950mt-8 text-white font-extrabold">
+      YOU ARE NOT AN ADMIN
+    </h1>
   );
 };
 

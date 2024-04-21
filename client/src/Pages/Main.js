@@ -10,6 +10,7 @@ import Room from "./Room";
 // import WrappedNormalRegisterLawyerForm from "./RegisterLawyer";
 import RegisterJudge from "./RegisterJudge";
 import Error from "./Error";
+import { Welcome } from "../components";
 const Main = (props) => {
   console.log("propss passable", props.passableItems);
   console.log("propsss ", props);
@@ -18,12 +19,12 @@ const Main = (props) => {
       <Navbar />
       <Routes>
         <Route path="home" element={<Layout props={props} />} />
-        <Route
+        {/* <Route
           path="/"
           element={
             <Login passableItems={props.passableItems} user={props.user} />
           }
-        />
+        /> */}
         <Route
           path="login"
           element={
@@ -43,11 +44,15 @@ const Main = (props) => {
           element={<RegisterJudge passableItems={props.passableItems} />}
         />
         <Route
-          path="register-user"
-          element={<RegisterParty passableItems={props.passableItems} />}
+          path="/"
+          element={<Welcome passableItems={props.passableItems} />}
         />
         <Route path="*" element={<Error />} />
-        <Route path="/home/:caseId" element={<Room />} />
+        <Route
+          path="/home/:caseId"
+          element={<Room />}
+          passableItems={props.passableItems}
+        />
       </Routes>
     </>
   );

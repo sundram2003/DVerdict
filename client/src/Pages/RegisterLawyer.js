@@ -26,32 +26,6 @@ const Register = ({ passableItems }) => {
   };
   let num;
   const getValue = async (court) => {
-    // try {
-    //   console.log("Getting judge ID...");
-    //   var events = await court?.events
-    //     ?.lawyerRegistered({ fromBlock: 0 })
-    //     ?.on("data", (event) => {
-    //       num = event?.returnValues?._lawyerId;
-    //       if (num) setLawyerId(String(num));
-    //       console.log("Lawyer ID set:", event?.returnValues?._lawyerId);
-    //     })
-    //     ?.on("changed", (event) => {
-    //       console.log("NEWWW", event);
-    //     })
-    //     ?.on("error", console.error);
-    //   console.log("Events:", events);
-    //   // court.events
-    //   //   .judgeRegistered({ fromBlock: 0 })
-    //   //   ?.on("data", (event) => {
-    //   //     setJudgeId(event?.returnValues?._judgeId);
-    //   //   })
-    //   //   ?.on("changed", (event) => {
-    //   //     console.log("NEWWW", event);
-    //   //   })
-    //   //   ?.on("error", console.error);
-    // } catch (error) {
-    //   console.error(error);
-    // }
     try {
       console.log("Getting lawyer ID...");
       if (!court || !court.events || !court.events.lawyerRegistered) {
@@ -123,45 +97,51 @@ const Register = ({ passableItems }) => {
   console.log("lawyerId", lawyerIdd);
 
   return (
-    <div className="p-8 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
-      <h1 className="text-2xl font-bold text-center">Register Lawyer</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Name"
-          name="name"
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Phone Number"
-          name="phone"
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          placeholder={`Eth address:${passableItems.account}`}
-          disabled
-          className="block w-full p-2 border border-gray-300 rounded bg-gray-100"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="block w-full p-2 bg-blue-500 text-white font-semibold rounded"
-        >
-          {loading ? "Processing..." : "Proceed to Add the user"}
-        </button>
-      </form>
-      {loading && <p className=" mt-4 text-center">Loading...</p>}
-      {lawyerId && (
-        <h3 className="text-center">Your Lawyer Id is: {lawyerIdd}</h3>
-      )}
+    <div className="flex  min-h-screen items-center justify-center  bg-slate-950">
+      <div className="p-8 bg-slate-800 max-w-md mx-auto bg-white rounded-xl shadow-md shadow-slate-600 space-y-4 mt-4">
+        <h1 className="text-2xl font-bold text-center text-white">
+          Register Lawyer
+        </h1>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            placeholder="Name"
+            name="name"
+            className="block w-full p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="text"
+            placeholder="Email"
+            name="email"
+            className="block w-full p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="text"
+            placeholder="Phone Number"
+            name="phone"
+            className="block w-full p-2 border border-gray-400 rounded"
+          />
+          <input
+            type="text"
+            placeholder={`Eth address:${passableItems.account}`}
+            disabled
+            className="block w-full p-2 border border-gray-400 rounded bg-gray-200"
+          />
+          <button
+            type="submit"
+            disabled={loading}
+            className="block w-full p-2 bg-blue-500 text-white font-semibold rounded"
+          >
+            {loading ? "Processing..." : "Proceed to Add the user"}
+          </button>
+        </form>
+        {loading && <p className=" mt-4 text-center">Loading...</p>}
+        {lawyerId && (
+          <h3 className="text-center text-white">
+            Your Lawyer Id is: {lawyerIdd}
+          </h3>
+        )}
+      </div>
     </div>
   );
 };

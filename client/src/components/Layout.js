@@ -47,9 +47,14 @@ const Layout = ({ props }) => {
   };
 
   return (
-    <div className="bg-gray-200 min-h-screen">
+    <div className="bg-gray-white min-h-screen bg-gray-900">
       <FileUploads props={props.passableItems} />
-      <button onClick={clickhandler}>Join Hearing</button>
+      <button
+        onClick={clickhandler}
+        className="bg-blue-500 hover:bg-blue-700 mb-2 ml-4 text-white font-bold py-2 px-4 rounded mt-4"
+      >
+        Join Hearing
+      </button>
       <br />
       <Display props={props.passableItems} />
     </div>

@@ -73,28 +73,32 @@ const Login = ({ passableItems, user }) => {
     }
   };
   return (
-    <div className="flex justify-center items-center h-screen">
-      <form onSubmit={handleSubmit} className="w-full max-w-xs">
-        <div className="mb-4">
+    <div className="flex justify-center items-center h-screen bg-gray-900">
+      {/* <h1 className="text-white">Login</h1> */}
+      <form
+        onSubmit={handleSubmit}
+        className="w-full max-w-xs bg-slate-800 shadow-md shadow-slate-100 rounded px-8 pt-6 pb-8"
+      >
+        <div className="mb-4 text-white">
           <IconContext.Provider value={{ size: "1.5em", className: "mr-2" }}>
             <MdPerson />
           </IconContext.Provider>
           <input
             type="text"
-            className="border rounded w-full py-2 px-3"
+            className="border rounded w-full py-2 px-3 focus:outline-none focus:border-slate-100 text-black"
             placeholder="Case Number"
             value={caseNumber}
             onChange={(e) => setCaseNumber(e.target.value)}
             required
           />
         </div>
-        <div className="mb-6">
+        <div className="mb-6 text-white">
           <IconContext.Provider value={{ size: "1.5em", className: "mr-2" }}>
             <MdLock />
           </IconContext.Provider>
           <button
             type="submit"
-            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            className="bg-blue-500 hover:bg-blue-700 text-white font-bold px-3 py-2 rounded focus:outline-none focus:shadow-outline"
             disabled={loading}
           >
             Proceed to Login with MetaMask

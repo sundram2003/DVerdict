@@ -1,7 +1,11 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
+import Loader from "./Loader";
+// import "./FileUpload.css";
 const FileUploads = (props) => {
+  const [loading, setLoading] = useState(false);
   console.log("props in fileuploads", props);
   const { court, account } = props?.props;
   const [file, setFile] = useState(null);
@@ -10,6 +14,7 @@ const FileUploads = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (file) {
+      setLoading(true);
       try {
         const formData = new FormData();
         formData.append("file", file);
@@ -34,12 +39,16 @@ const FileUploads = (props) => {
           .uploadEvidence(caseId, ImgHash, "file")
           .send({ from: account });
 
-        alert("Successfully Image Uploaded");
+        // alert("Successfully Image Uploaded");
+        toast.success("Successfully Image Uploaded");
         setFileName("No image selected");
         setFile(null);
       } catch (e) {
         console.log("errorrrrrrrrrr", e);
-        alert("Unable to upload image to Pinata");
+        toast.error("Unable to upload image to Pinata");
+        // alert("Unable to upload image to Pinata");
+      } finally {
+        setLoading(false); // Set loading to false regardless of success or failure
       }
     }
     // alert("Successfully Image Uploaded");
@@ -58,8 +67,9 @@ const FileUploads = (props) => {
     e.preventDefault();
   };
   return (
-    <div>
-      <form className="form" onSubmit={handleSubmit}>
+    <div className="bg-gray-900">
+      <div className="p-8 max-w-md mx-auto bg-gray-800 rounded-xl shadow-md shadow-slate-300 space-y-4 mt-4">
+        {/* <form className="form" onSubmit={handleSubmit}>
         <label htmlFor="file-upload" className="choose">
           Choose Image
         </label>
@@ -74,7 +84,35 @@ const FileUploads = (props) => {
         <button type="submit" className="upload" disabled={!file}>
           Upload File
         </button>
-      </form>
+      </form> */}
+        <div className="bg-white p-6 rounded shadow-md">
+          <form className="form" onSubmit={handleSubmit}>
+            <label
+              htmlFor="file-upload"
+              className="block text-center bg-blue-500 text-white font-bold py-2 px-4 rounded cursor-pointer mb-4"
+            >
+              Choose Image
+            </label>
+            <input
+              type="file"
+              id="file-upload"
+              name="data"
+              className="hidden"
+              onChange={retrieveFile}
+            />
+            <span className="block text-center mb-2">Image: {fileName}</span>
+            <button
+              type="submit"
+              className="block mx-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded cursor-pointer disabled:opacity-50"
+              disabled={!file}
+            >
+              {loading && <Loader />}
+              {!loading ? "" : "Uploading..."}
+              Upload File
+            </button>
+          </form>
+        </div>
+      </div>
     </div>
   );
 };

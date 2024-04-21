@@ -41,15 +41,6 @@ const Register = ({ passableItems }) => {
         })
         ?.on("error", console.error);
       console.log("Events:", events);
-      // court.events
-      //   .judgeRegistered({ fromBlock: 0 })
-      //   ?.on("data", (event) => {
-      //     setJudgeId(event?.returnValues?._judgeId);
-      //   })
-      //   ?.on("changed", (event) => {
-      //     console.log("NEWWW", event);
-      //   })
-      //   ?.on("error", console.error);
     } catch (error) {
       console.error(error);
     }
@@ -98,48 +89,56 @@ const Register = ({ passableItems }) => {
   const judgeIdd = Number(judgeId);
   console.log("judgeId", judgeIdd);
   return (
-    <div className="p-8 max-w-md mx-auto bg-white rounded-xl shadow-md space-y-4">
-      <h1 className="text-2xl font-bold text-center">Register Judge</h1>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <input
-          type="text"
-          placeholder="Name"
-          name="name"
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          placeholder="Phone Number"
-          name="phone"
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-        <input
-          type="text"
-          cursor="not-allowed"
-          placeholder={`Eth address: ${passableItems.account}`}
-          disabled
-          style={{ cursor: "not-allowed" }}
-          className="block w-full p-2 border border-gray-300 rounded"
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-        >
-          {loading ? "Processing..." : "Proceed to Add the user"}
-        </button>
-      </form>
-      {loading && <p className="mt-4 text-center">Loading...</p>}
-      {judgeId && (
-        <h3 className="mt-4 text-center">Your Judge Id is: {judgeIdd}</h3>
-      )}
-    </div>
+    <>
+      <div className="flex justify-center min-h-screen items-center  bg-slate-950">
+        <div className="p-8  bg-slate-800 max-w-md mx-auto  rounded-xl mt-4  shadow-slate-600 shadow-md space-y-4">
+          <h1 className="text-2xl font-bold text-center text-teal-50">
+            Register Judge
+          </h1>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <input
+              type="text"
+              placeholder="Name"
+              name="name"
+              className="block w-full p-2 border border-gray-400 rounded"
+            />
+            <input
+              type="text"
+              placeholder="Email"
+              name="email"
+              className="block w-full p-2 border border-gray-400 rounded"
+            />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              name="phone"
+              className="block w-full p-2 border border-gray-400 rounded"
+            />
+            <input
+              type="text"
+              cursor="not-allowed"
+              placeholder={`Eth address: ${passableItems.account}`}
+              disabled
+              style={{ cursor: "not-allowed" }}
+              className="block w-full p-2 border border-gray-400 rounded"
+            />
+            <button
+              type="submit"
+              disabled={loading}
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold  py-2 px-4 rounded"
+            >
+              {loading ? "Processing..." : "Proceed to Add the user"}
+            </button>
+          </form>
+          {loading && <p className="mt-4 text-center">Loading...</p>}
+          {judgeId && (
+            <h3 className="mt-4 text-center text-white">
+              Your Judge Id is: {judgeIdd}
+            </h3>
+          )}
+        </div>
+      </div>
+    </>
   );
 };
 
